@@ -78,7 +78,7 @@ class BackyardFlyer(Drone):
         """
         This triggers when `MsgID.LOCAL_POSITION` is received and self.local_position contains new data
         """
-        print("\n\tposition callback")
+        # print("\n\tposition callback")
         if not self.in_mission:
             return
         if self.flight_state == States.MANUAL:
@@ -93,11 +93,13 @@ class BackyardFlyer(Drone):
                 self.waypoint_transition()
                 
         elif self.flight_state == States.WAYPOINT:
-            if ((np.linalg.norm( self.target_position[0:2] - self.local_position[0:2]) < 0.1 ) and 
+            if ((np.linalg.norm( self.target_position[0:2] - self.local_position[0:2]) < 1.0 ) and 
             (len(self.all_waypoints) > 0)):
                 self.waypoint_transition()
             else:
-                if np.linalg.norm(self.global_position[0:2] - self.global_home[0:2]) < 0.1:
+                # This condition is from https://github.com/mehmetyldz87/FCND-Backyard-Flyer/blob/master/backyard_flyer.py 
+                # when I asked for help.
+                if ((np.linalg.norm(self.local_velocity[0:2]) < 1.0 ) and (len(self.all_waypoints) < 1)): 
                     self.landing_transition()
                     
 
@@ -106,7 +108,7 @@ class BackyardFlyer(Drone):
         """
         This triggers when `MsgID.LOCAL_VELOCITY` is received and self.local_velocity contains new data
         """
-        print("\n\tvelocity callback")
+        # print("\n\tvelocity callback")
         if self.flight_state == States.LANDING:
             if ((self.global_position[2] - self.global_home[2] < 0.1) and
             abs(self.local_position[2]) < 0.1):
@@ -237,5 +239,5 @@ if __name__ == "__main__":
     conn = MavlinkConnection('tcp:{0}:{1}'.format(args.host, args.port), threaded=False, PX4=False)
     #conn = WebSocketConnection('ws://{0}:{1}'.format(args.host, args.port))
     drone = BackyardFlyer(conn)
-    time.sleep(1)
+    time.sleep(2)
     drone.start()
