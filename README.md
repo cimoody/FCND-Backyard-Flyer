@@ -13,11 +13,11 @@ INFO:root:Application Started
 You can navigate to http://localhost:8097
 ```
 
-I thoought the plots were required because I forked this repo before https://github.com/udacity/FCND-Backyard-Flyer/commit/de572e0e911dcddeca6b5abda534d6ee6dca7637 ;)
+I thought the plots were required because I forked this repo before https://github.com/udacity/FCND-Backyard-Flyer/commit/de572e0e911dcddeca6b5abda534d6ee6dca7637 😉
 
 I used https://github.com/udacity/udacidrone/blob/master/udacidrone/drone.py and https://udacity.github.io/udacidrone/docs/visdom-tutorial.htmlextensively to figure out how to control the drone. 
 
-I debugged my code at the end by comparing it to https://github.com/mehmetyldz87/FCND-Backyard-Flyer/blob/master/backyard_flyer.py (Thank you for your help!)
+I debugged my code at the end by comparing it to https://github.com/mehmetyldz87/FCND-Backyard-Flyer/blob/master/backyard_flyer.py (👏 Thank you for your help!)
 
 ## Project Instructions
 In this project, you'll set up a state machine using event-driven programming to autonomously flying a drone. You will be using flying a quadcopter in Unity simulator. After completing this assignment, you'll be familiar with sending commands and receiving incoming data from the drone. 
