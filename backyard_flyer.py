@@ -52,6 +52,7 @@ class BackyardFlyer(Drone):
         self.all_waypoints = []
         self.in_mission = True
         self.check_state = {}
+        self.deadband = 5.0 # m around each waypoint
 
         # initial state
         self.flight_state = States.MANUAL
@@ -93,13 +94,13 @@ class BackyardFlyer(Drone):
                 self.waypoint_transition()
                 
         elif self.flight_state == States.WAYPOINT:
-            if ((np.linalg.norm( self.target_position[0:2] - self.local_position[0:2]) < 1.0 ) and 
+            if ((np.linalg.norm( self.target_position[0:2] - self.local_position[0:2]) < self.deadband) and 
             (len(self.all_waypoints) > 0)):
                 self.waypoint_transition()
             else:
                 # This condition is from https://github.com/mehmetyldz87/FCND-Backyard-Flyer/blob/master/backyard_flyer.py 
                 # when I asked for help.
-                if ((np.linalg.norm(self.local_velocity[0:2]) < 1.0 ) and (len(self.all_waypoints) < 1)): 
+                if ((np.linalg.norm(self.local_velocity[0:2]) < self.deadband ) and (len(self.all_waypoints) < 1)): 
                     self.landing_transition()
                     
 
